@@ -69,6 +69,8 @@ namespace Storyteller.API.Services
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var token = new JwtSecurityToken(
+                issuer: _configuration.GetSection("AppSettings:issuer").Value,
+                audience: _configuration.GetSection("AppSettings:audience").Value,
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: cred);

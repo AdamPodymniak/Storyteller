@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Storyteller.API.Models;
@@ -47,6 +49,7 @@ namespace Storyteller.API.Controllers
             if (response == "PasErr") return BadRequest("Wrong password");
             return Ok(response);
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("api/getinvitation")]
         public async Task<ActionResult<string>> GetInvitation()
         {
