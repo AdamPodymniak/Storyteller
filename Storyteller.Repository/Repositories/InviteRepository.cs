@@ -3,32 +3,26 @@ using Npgsql;
 using Storyteller.Repository.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Storyteller.Repository.Repositories
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IInviteRepository : IGenericRepository<Invite>
     {
-        User GetByGuid(Guid guid);
+        IEnumerable<Invite> GetNotUsed();
     }
-    public class UsersRepository : GenericRepository<User>, IUserRepository
+    public class InviteRepository : GenericRepository<Invite>, IInviteRepository
     {
-        public User GetByGuid(Guid guid)
+        public IEnumerable<Invite> GetNotUsed()
         {
             using (var connection = new NpgsqlConnection(dbConnection))
             {
-                User user = new User();
                 SimpleCRUD.SetDialect(SimpleCRUD.Dialect.PostgreSQL);
                 connection.Open();
-                var types = connection.GetList<User>();
-                foreach(var type in types)
-                {
-                    user = type;
-                }
-                return user;
+                var types = connection.GetList<Invite>(new {Used = false});
+                return types;
             }
         }
     }
