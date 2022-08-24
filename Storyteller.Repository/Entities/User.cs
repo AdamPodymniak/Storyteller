@@ -13,5 +13,6 @@ namespace Storyteller.Repository.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public float Rating { get; set; }
+        public string Role { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Storyteller.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("register")]
+        [HttpPost("api/register")]
         public async Task<ActionResult<User>> Register(UserRegistrationModel request)
         {
             if (request.Password.Length < 8) return BadRequest("Password is too short");
@@ -32,6 +32,7 @@ namespace Storyteller.API.Controllers
             user.PasswordHash = passwordHash;
             user.Username = request.Username;
             user.Rating = 0;
+            user.Role = "Admin";
 
             return Ok(user);
         }
@@ -45,7 +46,7 @@ namespace Storyteller.API.Controllers
             }
         }
 
-        [HttpPost("login")]
+        [HttpPost("api/login")]
         public async Task<ActionResult<string>> Login(UserLoginModel request)
         {
             if (user.Username != request.Username) return BadRequest("User does not exist");
@@ -70,6 +71,7 @@ namespace Storyteller.API.Controllers
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
