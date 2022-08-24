@@ -49,11 +49,11 @@ namespace Storyteller.API.Controllers
             if (response == "PasErr") return BadRequest("Wrong password");
             return Ok(response);
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("api/getinvitation")]
-        public async Task<ActionResult<string>> GetInvitation()
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [HttpPost("api/getinvitation")]
+        public async Task<ActionResult<string>> GetInvitation(string role)
         {
-            string invitation = _authService.GenerateInvitation();
+            string invitation = _authService.GenerateInvitation(role);
             return Ok(invitation);
         }
 

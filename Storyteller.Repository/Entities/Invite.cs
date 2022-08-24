@@ -11,5 +11,6 @@ namespace Storyteller.Repository.Entities
         public int ID { get; set; }
         public Guid Invitation { get; set; }
         public bool Used { get; set; }
+        public string Role { get; set; }
     }
 }

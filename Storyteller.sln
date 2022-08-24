@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storyteller.API", "Storyteller\Storyteller.API.csproj", "{7199B6B3-11B2-48F8-AA94-B3FA2928BD0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storyteller.API", "Storyteller\Storyteller.API.csproj", "{7199B6B3-11B2-48F8-AA94-B3FA2928BD0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storyteller.Repository", "Storyteller.Repository\Storyteller.Repository.csproj", "{9A7A9849-FB2B-4485-BCB3-925B7C6E9ADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storyteller.Repository", "Storyteller.Repository\Storyteller.Repository.csproj", "{9A7A9849-FB2B-4485-BCB3-925B7C6E9ADE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "storyteller.webapp", "Storyteller.WebApp\storyteller.webapp.esproj", "{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{9A7A9849-FB2B-4485-BCB3-925B7C6E9ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A7A9849-FB2B-4485-BCB3-925B7C6E9ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A7A9849-FB2B-4485-BCB3-925B7C6E9ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8E8FBB-536A-4ACB-BCE8-B7DFB22FB7CE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

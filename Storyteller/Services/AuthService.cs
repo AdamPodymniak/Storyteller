@@ -14,7 +14,7 @@ namespace Storyteller.API.Services
     {
         string Register(UserRegistrationModel request);
         string Login(UserLoginModel request);
-        string GenerateInvitation();
+        string GenerateInvitation(string role);
     }
     public class AuthService : IAuthService
     {
@@ -98,7 +98,7 @@ namespace Storyteller.API.Services
             user.PasswordHash = passwordHash;
             user.Username = request.Username;
             user.Rating = 0;
-            user.Role = "Admin";
+            user.Role = myInvitation.Role;
             user.Guid = guid;
 
             _userRepository.Add(user);
@@ -130,11 +130,12 @@ namespace Storyteller.API.Services
             }
         }
         
-        public string GenerateInvitation()
+        public string GenerateInvitation(string role)
         {
             Invite i = new Invite();
             i.Used = false;
             i.Invitation = Guid.NewGuid();
+            i.Role = role;
             _inviteRepository.Add(i);
 
             return i.Invitation.ToString();
