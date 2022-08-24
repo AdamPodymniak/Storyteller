@@ -8,11 +8,12 @@ namespace Storyteller.Repository.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public float Rating { get; set; }
         public string Role { get; set; }
+        public Guid Guid { get; set; }
     }
 }

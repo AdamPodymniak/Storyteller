@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Storyteller.Repository\Storyteller.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

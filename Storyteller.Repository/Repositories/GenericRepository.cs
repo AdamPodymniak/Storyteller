@@ -12,7 +12,7 @@ namespace Storyteller.Repository.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly string dbConnection = "Host=localhost;Username=postgres;Password=pasztet14;Database=Storyteller";
+        public readonly string dbConnection = "Host=localhost;Username=postgres;Password=pasztet14;Database=Storyteller";
         public void Add(T obj)
         {
             using (var connection = new NpgsqlConnection(dbConnection))

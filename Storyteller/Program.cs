@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Storyteller.API.Services;
 using Storyteller.Repository.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IAuthService, AuthService>();
+
 builder.Services.AddTransient<IUserRepository, UsersRepository>();
+builder.Services.AddTransient<IInviteRepository, InviteRepository>();
 
 var app = builder.Build();
 
