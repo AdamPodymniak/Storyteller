@@ -1,59 +1,52 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Storyteller.API.Models;
 using Storyteller.API.Services;
 using Storyteller.Repository.Entities;
-using Storyteller.Repository.Repositories;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace Storyteller.API.Controllers
 {
+    [EnableCors("CorsAPI")]
+    [Route("[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
-
-        public static User user = new User();
-
-        private readonly IConfiguration _configuration;
         private readonly IAuthService _authService;
 
-        public AuthController(IConfiguration configuration, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _configuration = configuration;
         }
 
-        [HttpPost("api/register")]
+        [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserRegistrationModel request)
         {
-            if (request.Password.Length < 8) return BadRequest("Password is too short");
-            if (request.Password != request.RepeatPassword) return BadRequest("Repeat Password Error");
-            if (request.Invitation == null) return BadRequest("No invitation");
+            if (request.Password.Length < 8) return BadRequest("PasErr1");
+            if (request.Password != request.RepeatPassword) return BadRequest("PasErr2");
+            if (request.Invitation == null) return BadRequest("InvErr");
 
             string user = _authService.Register(request);
-            if (user == "UsrErr") return BadRequest("Username is already taken");
-            if (user == "InvErr") return BadRequest("Wrong invitation");
+            if (user == "UsrErr") return BadRequest("UsrErr");
+            if (user == "InvErr") return BadRequest("InvErr");
 
             return Ok(user);
         }
 
-        [HttpPost("api/login")]
+        [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserLoginModel request)
         {
             string response = _authService.Login(request);
-            if (response == "UsrErr") return BadRequest("User does not exist");
-            if (response == "PasErr") return BadRequest("Wrong password");
+            if (response == "UsrErr") return BadRequest("UsrErr");
+            if (response == "PasErr") return BadRequest("PasErr");
             return Ok(response);
         }
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-        [HttpPost("api/getinvitation")]
-        public async Task<ActionResult<string>> GetInvitation(string role)
+        [HttpPost("getinvitation")]
+        public async Task<ActionResult<string>> GetInvitation(InvitationModel role)
         {
-            string invitation = _authService.GenerateInvitation(role);
+            string invitation = _authService.GenerateInvitation(role.Role);
             return Ok(invitation);
         }
 

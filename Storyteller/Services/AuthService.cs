@@ -42,7 +42,7 @@ namespace Storyteller.API.Services
             if (user.Username == null) return "UsrErr";
             if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt)) return "PasErr";
 
-            string token = CreateToken(user);
+            string token = CreateJWTToken(user);
 
             return token;
         }
@@ -56,10 +56,11 @@ namespace Storyteller.API.Services
             }
         }
 
-        private string CreateToken(User user)
+        private string CreateJWTToken(User user)
         {
             List<Claim> claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, user.Guid.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role),
             };
