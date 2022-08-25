@@ -12,18 +12,18 @@ namespace Storyteller.Repository.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        User GetByGuid(Guid guid);
+        User GetByName(string name);
     }
     public class UsersRepository : GenericRepository<User>, IUserRepository
     {
-        public User GetByGuid(Guid guid)
+        public User GetByName(string name)
         {
             using (var connection = new NpgsqlConnection(dbConnection))
             {
                 User user = new User();
                 SimpleCRUD.SetDialect(SimpleCRUD.Dialect.PostgreSQL);
                 connection.Open();
-                var types = connection.GetList<User>();
+                var types = connection.GetList<User>(new {Username = name});
                 foreach(var type in types)
                 {
                     user = type;

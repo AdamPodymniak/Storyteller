@@ -35,12 +35,33 @@ namespace Storyteller.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserLoginModel request)
+        public async Task<ActionResult<TokenModel>> Login(UserLoginModel request)
         {
-            string response = _authService.Login(request);
-            if (response == "UsrErr") return BadRequest("UsrErr");
-            if (response == "PasErr") return BadRequest("PasErr");
+            var response = _authService.Login(request);
+            if (response == null) return BadRequest("Err");
             return Ok(response);
+        }
+        [HttpPost("refresh")]
+        public async Task<ActionResult<TokenModel>> RefreshToken(TokenModel tokenApiModel)
+        {
+            if (tokenApiModel is null)
+                return BadRequest("Invalid client request");
+            string accessToken = tokenApiModel.JWTToken;
+            string refreshToken = tokenApiModel.RefreshToken;
+            var principal = _authService.GetPrincipalFromExpiredToken(accessToken);
+            string name = principal.Identity.Name;
+            var user = _authService.GetUserFromName(name);
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                return BadRequest("Invalid client request");
+
+            var newJWTToken = _authService.CreateJWTToken(user);
+            var newRefreshToken = _authService.CreateRefreshToken();
+
+            return Ok(new TokenModel
+            {
+                JWTToken = newJWTToken,
+                RefreshToken = newRefreshToken,
+            });
         }
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpPost("getinvitation")]

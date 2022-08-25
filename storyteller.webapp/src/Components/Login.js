@@ -24,7 +24,8 @@ const Login = () => {
                 const { data } = await axios.post('/Auth/login',
                     JSON.parse(JSON.stringify({username, password}))
                 )
-                cookies.set('token', data, { path: "/" })
+                cookies.set('accessToken', data.jwtToken, { path: "/" });
+                cookies.set('refreshToken', data.refreshToken, { path: "/" });
                 console.log(data)
                 navigate('/getinvitation');
                 return () => {

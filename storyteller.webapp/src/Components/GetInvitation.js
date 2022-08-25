@@ -17,7 +17,7 @@ const GetInvitation = () => {
             const body = JSON.parse(JSON.stringify({role}));
             const { data } = await axios.post('/Auth/getinvitation', body, {
                 headers: {
-                    Authorization: `Bearer ${cookies.get('token')}`
+                    Authorization: `Bearer ${cookies.get('accessToken')}`
                 }
             });
     

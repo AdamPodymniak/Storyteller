@@ -7,14 +7,19 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Storyteller.API.Services
 {
     public interface IAuthService
     {
+        User GetUserFromName(string name);
         string Register(UserRegistrationModel request);
-        string Login(UserLoginModel request);
+        TokenModel Login(UserLoginModel request);
         string GenerateInvitation(string role);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        string CreateJWTToken(User user);
+        string CreateRefreshToken();
     }
     public class AuthService : IAuthService
     {
@@ -28,7 +33,7 @@ namespace Storyteller.API.Services
             _inviteRepository = inviteRepository;
         }
 
-        public string Login(UserLoginModel request)
+        public TokenModel? Login(UserLoginModel request)
         {
             User user = new User();
             IEnumerable<User> users = _userRepository.GetList();
@@ -39,10 +44,17 @@ namespace Storyteller.API.Services
                     user = u;
                 }
             }
-            if (user.Username == null) return "UsrErr";
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt)) return "PasErr";
+            if (user.Username == null) return null;
+            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt)) return null;
 
-            string token = CreateJWTToken(user);
+            TokenModel token = new TokenModel();
+
+            token.JWTToken = CreateJWTToken(user);
+            token.RefreshToken = CreateRefreshToken();
+
+            user.RefreshToken = token.RefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(1);
+            _userRepository.Update(user);
 
             return token;
         }
@@ -51,12 +63,12 @@ namespace Storyteller.API.Services
         {
             using (var hmac = new HMACSHA512(passwordSalt))
             {
-                var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return computeHash.SequenceEqual(passwordHash);
             }
         }
 
-        private string CreateJWTToken(User user)
+        public string CreateJWTToken(User user)
         {
             List<Claim> claims = new List<Claim>
             {
@@ -65,7 +77,7 @@ namespace Storyteller.API.Services
                 new Claim(ClaimTypes.Role, user.Role),
             };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -73,11 +85,40 @@ namespace Storyteller.API.Services
                 issuer: _configuration.GetSection("AppSettings:issuer").Value,
                 audience: _configuration.GetSection("AppSettings:audience").Value,
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.UtcNow.AddMinutes(5),
                 signingCredentials: cred);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
+        }
+
+        public string CreateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value)),
+                ValidateLifetime = false
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken securityToken;
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha512Signature, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid token");
+            return principal;
         }
 
         public string Register(UserRegistrationModel request)
@@ -140,6 +181,12 @@ namespace Storyteller.API.Services
             _inviteRepository.Add(i);
 
             return i.Invitation.ToString();
+        }
+
+        public User GetUserFromName(string name)
+        {
+            var user = _userRepository.GetByName(name);
+            return user;
         }
     }
 }
