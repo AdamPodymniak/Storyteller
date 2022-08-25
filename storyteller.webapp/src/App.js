@@ -8,6 +8,7 @@ import {
 import Register from './Components/Register'
 import Login from './Components/Login'
 import GetInvitation from "./Components/GetInvitation";
+import Entrance from "./Components/Entrance";
 
 function App() {
   return (
@@ -17,7 +18,10 @@ function App() {
           <h2 className="logo">STORYTELLER</h2>
           <ul>
             <li>
-              <Link to="/">\Login\</Link>
+              <Link to="/">\Home\</Link>
+            </li>
+            <li>
+              <Link to="/login">\Login\</Link>
             </li>
             <li>
               <Link to="/register">\Register\</Link>
@@ -29,7 +33,8 @@ function App() {
         </nav>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Entrance />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/getinvitation" element={<GetInvitation />} />
           </Routes>

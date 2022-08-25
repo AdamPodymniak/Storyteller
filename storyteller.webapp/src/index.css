@@ -28,6 +28,7 @@ body {
 }
 .navbar{
     position: fixed;
+    display: none;
 }
 .navbar ul * {
     display: inline;
