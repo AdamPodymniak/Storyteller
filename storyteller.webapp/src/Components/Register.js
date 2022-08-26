@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from '../api/axios';
+import './Login.css';
 
 const Register = () => {
 
@@ -45,49 +46,55 @@ const Register = () => {
         }
 
     return (
-        <div style={{textAlign: "center"}}>
-            <h2>Register</h2>
-            {errMsg ? (<p>{errMsg}</p>) : (null)}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username: </label><br />
-                <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete='off'
-                    value={username}
-                    onChange={(e)=>setUsername(e.target.value)}
-                    required
-                /><br />
-                <label htmlFor="password">Password: </label><br />
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    required
-                /><br />
-                <label htmlFor="repeatPassword">Repeat password: </label><br />
-                <input
-                    id="repeatPassword"
-                    name="repeatPassword"
-                    type="password"
-                    value={repeatPassword}
-                    onChange={(e)=>setRepeatPassword(e.target.value)}
-                    required
-                /><br />
-                <label htmlFor="invitation">Invitation: </label><br />
-                <input
-                    id="invitation"
-                    name="invitation"
-                    type="text"
-                    value={invitation}
-                    onChange={(e)=>setInvitation(e.target.value)}
-                    required
-                /><br />
-                <button type="submit" style={{padding: "10px 30px", backgroundColor: "#0aa9ff"}}>Log In</button>
-            </form>
+        <div className="Container">
+            <div className="Register">
+                <form onSubmit={handleSubmit}>
+                <h2 class="Title">Register</h2>
+                {errMsg ? (<p>{errMsg}</p>) : (null)}
+                    <input
+                        placeholder='Username'
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete='off'
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}
+                        required
+                    /><br />
+                    <input
+                        placeholder='Password'
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}
+                        required
+                    /><br />
+                    <input
+                        placeholder='Repeat Password'
+                        id="repeatPassword"
+                        name="repeatPassword"
+                        type="password"
+                        value={repeatPassword}
+                        onChange={(e)=>setRepeatPassword(e.target.value)}
+                        required
+                    /><br />
+                    <input
+                        placeholder='Invitation'
+                        autoComplete='off'
+                        id="invitation"
+                        name="invitation"
+                        type="text"
+                        value={invitation}
+                        onChange={(e)=>setInvitation(e.target.value)}
+                        required
+                    /><br />
+                    <button type="submit">Log In</button>
+                    <p className="BottomLine">
+                        <Link to="/login" replace>— Or Login —</Link>
+                    </p>
+                </form>
+            </div>
         </div>
     )
 }

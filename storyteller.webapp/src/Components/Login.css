@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap");
+
+.Container {
+    color: #fbfbfb;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    background-image: url('../../public/images/photo-1585409677983-0f6c41ca9c3b.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Container::before{
+    background-color: rgba(26, 23, 23, .38);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.Login, .Register {
+    height: 100vh;
+    position: relative;
+    top: 20%;
+}
+input {
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 25px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    width: 330px;
+    height: 50px;
+    transition: .3s;
+    padding-left: 20px;
+    margin: 10px;
+}
+input:focus {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 17px;
+    outline: none;
+}
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 17px;
+    position: relative;
+}
+input:hover {
+    border: 1px solid #f1f1f1;
+    background: rgba(0, 0, 0, 0.05);
+}
+.Title {
+    position: relative;
+    top: -60px;
+    font-weight: 500;
+}
+.Description {
+    position: relative;
+    top: -10px;
+    font-weight: 300;
+}
+button {
+    margin: 10px;
+    width: 330px;
+    height: 50px;
+    transition: .3s;
+    background-color: rgb(246, 213, 172);
+    border: 1px solid transparent;
+    border-radius: 25px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: rgb(249, 209, 159);
+}
+.BottomLine {
+    font-size: small;
+}
+.BottomLine *{
+    text-decoration: none;
+    color: #f1f1f1;
+}

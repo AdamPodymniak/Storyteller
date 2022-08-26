@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import axios from '../api/axios';
 import Cookies from 'universal-cookie';
+import './Login.css';
 
 const cookies = new Cookies();
 
@@ -43,31 +44,37 @@ const Login = () => {
     }
 
     return (
-        <div style={{textAlign: "center"}}>
-            <h2>Login</h2>
-            {errMsg ? (<p>{errMsg}</p>) : (null)}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username: </label><br />
-                <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete='off'
-                    value={username}
-                    onChange={(e)=>setUsername(e.target.value)}
-                    required
-                /><br />
-                <label htmlFor="password">Password: </label><br />
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    required
-                /><br />
-                <button type="submit" style={{padding: "10px 30px", backgroundColor: "#0aa9ff"}}>Log In</button>
-            </form>
+        <div className="Container">
+            <div className="Login">
+                <form onSubmit={handleSubmit}>
+                    <h2 className="Title">Login</h2>
+                    <p className="Description">Do you have an account?</p>
+                    {errMsg ? (<p>{errMsg}</p>) : (null)}
+                    <input
+                        placeholder='Username'
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete='off'
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}
+                        required
+                    /><br />
+                    <input
+                        placeholder='Password'
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}
+                        required
+                    /><br />
+                    <button type="submit">LOG IN</button>
+                    <p className="BottomLine">
+                        <Link to="/register" replace>— Or Register —</Link>
+                    </p>
+                </form>
+            </div>
         </div>
     )
 }
