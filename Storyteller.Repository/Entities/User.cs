@@ -15,5 +15,7 @@ namespace Storyteller.Repository.Entities
         public float Rating { get; set; }
         public string Role { get; set; }
         public Guid Guid { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
     }
 }
