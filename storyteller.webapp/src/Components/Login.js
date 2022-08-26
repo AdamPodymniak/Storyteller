@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 import Cookies from 'universal-cookie';
 
@@ -16,6 +16,8 @@ const Login = () => {
     const loginRef = useRef(false);
 
     const navigate = new useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -24,10 +26,10 @@ const Login = () => {
                 const { data } = await axios.post('/Auth/login',
                     JSON.parse(JSON.stringify({username, password}))
                 )
-                cookies.set('accessToken', data.jwtToken, { path: "/" });
                 cookies.set('refreshToken', data.refreshToken, { path: "/" });
+                localStorage.setItem('jwtToken', data.jwtToken);
                 console.log(data)
-                navigate('/getinvitation');
+                navigate(from, { replace: true });
                 return () => {
                     loginRef.current = true;
                 }

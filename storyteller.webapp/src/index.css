@@ -28,7 +28,7 @@ body {
 }
 .navbar{
     position: fixed;
-    display: none;
+    /* display: none; */
 }
 .navbar ul * {
     display: inline;

@@ -85,7 +85,7 @@ namespace Storyteller.API.Services
                 issuer: _configuration.GetSection("AppSettings:issuer").Value,
                 audience: _configuration.GetSection("AppSettings:audience").Value,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 signingCredentials: cred);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -168,7 +168,7 @@ namespace Storyteller.API.Services
             using (var hmac = new HMACSHA512())
             {
                 passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
         }
         

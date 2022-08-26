@@ -8,7 +8,7 @@ import {
 import Register from './Components/Register'
 import Login from './Components/Login'
 import GetInvitation from "./Components/GetInvitation";
-import Entrance from "./Components/Entrance";
+import Main from "./Components/Main";
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
         </nav>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Entrance />} />
+            <Route path="/" element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/getinvitation" element={<GetInvitation />} />

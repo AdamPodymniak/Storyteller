@@ -1,30 +1,32 @@
 import { useRef, useState } from 'react';
-import Cookies from 'universal-cookie';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import axios from "../api/axios";
+import useAxiosPrivate from '../Hooks/useAxiosPrivate';
 
-const cookies = new Cookies();
 
 const GetInvitation = () => {
 
     const [invite, setInvite] = useState('');
     const [role, setRole] = useState('Reader');
 
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
     const inviteRef = useRef(false);
 
     const eventHandler = async ()=>{
         if(!inviteRef.current){
-            const body = JSON.parse(JSON.stringify({role}));
-            const { data } = await axios.post('/Auth/getinvitation', body, {
-                headers: {
-                    Authorization: `Bearer ${cookies.get('accessToken')}`
-                }
-            });
+            try{
+                const body = JSON.parse(JSON.stringify({role}));
+                const { data } = await axiosPrivate.post('/Auth/getinvitation', body);
+        
+                setInvite(data);
     
-            setInvite(data);
-
-            return ()=>{
-                inviteRef.current = true;
+                return ()=>{
+                    inviteRef.current = true;
+                }
+            }catch(err){
+                navigate('/login', { state: { from: location }, replace: true });
             }
         }
     }

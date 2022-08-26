@@ -55,12 +55,11 @@ namespace Storyteller.API.Controllers
                 return BadRequest("Invalid client request");
 
             var newJWTToken = _authService.CreateJWTToken(user);
-            var newRefreshToken = _authService.CreateRefreshToken();
 
             return Ok(new TokenModel
             {
                 JWTToken = newJWTToken,
-                RefreshToken = newRefreshToken,
+                RefreshToken = refreshToken,
             });
         }
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
