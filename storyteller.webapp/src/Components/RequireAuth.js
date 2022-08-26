@@ -5,10 +5,12 @@ import React from 'react'
 const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation();
     const role = localStorage.getItem('role');
+    const jwtToken = localStorage.getItem('jwtToken');
     return (
-        allowedRoles.find(r => r===role) ?
+        allowedRoles.find(r => r === role) ?
         <Outlet /> :
-        <Navigate to="/unauthorized" state={{ from: location }} replace />
+           jwtToken ? <Navigate to="/unauthorized" state={{ from: location }} replace /> : 
+           <Navigate to="/login" state={{ from: location }} replace />
     )
 }
 

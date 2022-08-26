@@ -26,7 +26,9 @@ const GetInvitation = () => {
                     inviteRef.current = true;
                 }
             }catch(err){
-                navigate('/login', { state: { from: location }, replace: true });
+                if(err.response.status === 403){
+                    navigate('/login', { state: { from: location }, replace: true });
+                }
             }
         }
     }

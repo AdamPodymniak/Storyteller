@@ -9,6 +9,7 @@ import GetInvitation from "./Components/GetInvitation";
 import Main from "./Components/Main";
 import Layout from "./Components/Layout";
 import RequireAuth from "./Components/RequireAuth";
+import RequireLogout from "./Components/RequireLogout";
 
 const ROLES = {
   Admin: "4214564343",
@@ -19,10 +20,14 @@ const ROLES = {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Main />} />
+      <Route element={<RequireLogout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+      </Route>
+      <Route path="/" element={<Layout />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Reader, ROLES.Writer]} />}>
+          <Route path="/" element={<Main />} />
+        </Route>
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
           <Route path="/getinvitation" element={<GetInvitation />} />
         </Route>

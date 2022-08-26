@@ -66,7 +66,7 @@ namespace Storyteller.API.Controllers
                 RefreshToken = refreshToken,
             });
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "5150")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Admin)]
         [HttpPost("getinvitation")]
         public async Task<ActionResult<string>> GetInvitation(InvitationModel role)
         {

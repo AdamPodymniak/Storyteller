@@ -22,7 +22,7 @@ const Register = () => {
                 await axios.post('/Auth/register',
                     JSON.parse(JSON.stringify({username, password, repeatPassword, invitation}))
                 )
-                navigate('/');
+                navigate('/login');
                 return () => {
                     registerRef.current = true;
                 }
