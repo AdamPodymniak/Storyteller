@@ -23,7 +23,7 @@
     position: relative;
     top: 20%;
 }
-input {
+.input {
     border: 1px solid transparent;
     background: rgba(255, 255, 255, 0.01);
     border-radius: 25px;
@@ -35,18 +35,16 @@ input {
     transition: .3s;
     padding-left: 20px;
     margin: 10px;
-}
-input:focus {
     color: rgba(255, 255, 255, 0.7);
     font-size: 17px;
     outline: none;
 }
-input::placeholder {
+.input::placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-size: 17px;
     position: relative;
 }
-input:hover {
+.input:hover {
     border: 1px solid #f1f1f1;
     background: rgba(0, 0, 0, 0.05);
 }
@@ -60,7 +58,7 @@ input:hover {
     top: -10px;
     font-weight: 300;
 }
-button {
+.button {
     margin: 10px;
     width: 330px;
     height: 50px;
@@ -70,13 +68,13 @@ button {
     border-radius: 25px;
     cursor: pointer;
 }
-button:hover{
+.button:hover{
     background-color: rgb(249, 209, 159);
 }
 .BottomLine {
     font-size: small;
 }
-.BottomLine *{
+.a{
     text-decoration: none;
     color: #f1f1f1;
 }

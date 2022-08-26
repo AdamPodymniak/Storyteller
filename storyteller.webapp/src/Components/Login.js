@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import axios from '../api/axios';
 import Cookies from 'universal-cookie';
-import './Login.css';
+import styles from './Login.module.css';
 
 const cookies = new Cookies();
 
@@ -44,13 +44,14 @@ const Login = () => {
     }
 
     return (
-        <div className="Container">
-            <div className="Login">
+        <div className={styles.Container}>
+            <div className={styles.Login}>
                 <form onSubmit={handleSubmit}>
-                    <h2 className="Title">Login</h2>
-                    <p className="Description">Do you have an account?</p>
+                    <h2 className={styles.Title}>Login</h2>
+                    <p className={styles.Description}>Do you have an account?</p>
                     {errMsg ? (<p>{errMsg}</p>) : (null)}
                     <input
+                        className={styles.input}
                         placeholder='Username'
                         id="username"
                         name="username"
@@ -61,6 +62,7 @@ const Login = () => {
                         required
                     /><br />
                     <input
+                        className={styles.input}
                         placeholder='Password'
                         id="password"
                         name="password"
@@ -69,9 +71,9 @@ const Login = () => {
                         onChange={(e)=>setPassword(e.target.value)}
                         required
                     /><br />
-                    <button type="submit">LOG IN</button>
-                    <p className="BottomLine">
-                        <Link to="/register" replace>— Or Register —</Link>
+                    <button className={styles.button} type="submit">LOG IN</button>
+                    <p className={styles.BottomLine}>
+                        <Link className={styles.a} to="/register" replace>— Or Register —</Link>
                     </p>
                 </form>
             </div>

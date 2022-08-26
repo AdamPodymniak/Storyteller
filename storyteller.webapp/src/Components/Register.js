@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../api/axios';
-import './Login.css';
+import styles from './Login.module.css';
 
 const Register = () => {
 
@@ -46,12 +46,14 @@ const Register = () => {
         }
 
     return (
-        <div className="Container">
-            <div className="Register">
+        <div className={styles.Container}>
+            <div className={styles.Register}>
                 <form onSubmit={handleSubmit}>
-                <h2 class="Title">Register</h2>
+                <h2 className={styles.Title}>Register</h2>
+                    <p className={styles.Description}>Do you have an account?</p>
                 {errMsg ? (<p>{errMsg}</p>) : (null)}
                     <input
+                        className={styles.input}
                         placeholder='Username'
                         id="username"
                         name="username"
@@ -62,6 +64,7 @@ const Register = () => {
                         required
                     /><br />
                     <input
+                        className={styles.input}
                         placeholder='Password'
                         id="password"
                         name="password"
@@ -71,6 +74,7 @@ const Register = () => {
                         required
                     /><br />
                     <input
+                        className={styles.input}
                         placeholder='Repeat Password'
                         id="repeatPassword"
                         name="repeatPassword"
@@ -80,6 +84,7 @@ const Register = () => {
                         required
                     /><br />
                     <input
+                        className={styles.input}
                         placeholder='Invitation'
                         autoComplete='off'
                         id="invitation"
@@ -89,9 +94,9 @@ const Register = () => {
                         onChange={(e)=>setInvitation(e.target.value)}
                         required
                     /><br />
-                    <button type="submit">Log In</button>
-                    <p className="BottomLine">
-                        <Link to="/login" replace>— Or Login —</Link>
+                    <button class={styles.button} type="submit">REGISTER</button>
+                    <p className={styles.BottomLine}>
+                        <Link className={styles.a} to="/login" replace>— Or Login —</Link>
                     </p>
                 </form>
             </div>
