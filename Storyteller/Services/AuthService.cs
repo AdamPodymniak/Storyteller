@@ -15,7 +15,7 @@ namespace Storyteller.API.Services
     {
         User GetUserFromName(string name);
         string Register(UserRegistrationModel request);
-        TokenModel Login(UserLoginModel request);
+        ResponseTokenModel Login(UserLoginModel request);
         string GenerateInvitation(string role);
         ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
         string CreateJWTToken(User user);
@@ -33,7 +33,7 @@ namespace Storyteller.API.Services
             _inviteRepository = inviteRepository;
         }
 
-        public TokenModel? Login(UserLoginModel request)
+        public ResponseTokenModel? Login(UserLoginModel request)
         {
             User user = new User();
             IEnumerable<User> users = _userRepository.GetList();
@@ -47,10 +47,11 @@ namespace Storyteller.API.Services
             if (user.Username == null) return null;
             if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt)) return null;
 
-            TokenModel token = new TokenModel();
+            ResponseTokenModel token = new ResponseTokenModel();
 
             token.JWTToken = CreateJWTToken(user);
             token.RefreshToken = CreateRefreshToken();
+            token.Role = user.Role;
 
             user.RefreshToken = token.RefreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(1);

@@ -28,7 +28,7 @@ const Login = () => {
                 )
                 cookies.set('refreshToken', data.refreshToken, { path: "/" });
                 localStorage.setItem('jwtToken', data.jwtToken);
-                console.log(data)
+                localStorage.setItem('role', data.role);
                 navigate(from, { replace: true });
                 return () => {
                     loginRef.current = true;

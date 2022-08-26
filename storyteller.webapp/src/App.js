@@ -1,46 +1,33 @@
 import {
-  BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Register from './Components/Register'
 import Login from './Components/Login'
 import GetInvitation from "./Components/GetInvitation";
 import Main from "./Components/Main";
+import Layout from "./Components/Layout";
+import RequireAuth from "./Components/RequireAuth";
+
+const ROLES = {
+  Admin: "4214564343",
+  Writer: "8546342134",
+  Reader: "0978441234"
+}
 
 function App() {
   return (
-    <Router>
-      <div>
-      <nav className="navbar">
-          <h2 className="logo">STORYTELLER</h2>
-          <ul>
-            <li>
-              <Link to="/">\Home\</Link>
-            </li>
-            <li>
-              <Link to="/login">\Login\</Link>
-            </li>
-            <li>
-              <Link to="/register">\Register\</Link>
-            </li>
-            <li>
-              <Link to="/getinvitation">\Invite\</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/getinvitation" element={<GetInvitation />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          <Route path="/getinvitation" element={<GetInvitation />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 

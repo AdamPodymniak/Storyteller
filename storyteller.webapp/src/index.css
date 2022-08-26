@@ -26,28 +26,3 @@ body {
   min-height: 100vh; 
   padding: 1rem 0.5rem;
 }
-.navbar{
-    position: fixed;
-    /* display: none; */
-}
-.navbar ul * {
-    display: inline;
-    padding-right: 20px;
-    text-decoration: none;
-    color: white;
-    font-size: 30px;
-}
-.navbar ul *:hover{
-    text-decoration: underline white;
-}
-.navbar ul {
-    position: fixed;
-    right: 0em;
-}
-.logo{
-    margin-top: -.2em;
-    position: fixed;
-    font-size: 3.5em;
-    padding: 5px;
-    font-family: 'Bebas Neue', 'sans-serif';
-}

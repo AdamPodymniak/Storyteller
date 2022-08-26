@@ -15,6 +15,10 @@ namespace Storyteller.API.Controllers
     {
         private readonly IAuthService _authService;
 
+        private const string Admin =  "4214564343";
+        private const string Writer = "8546342134";
+        private const string Reader = "0978441234";
+
         public AuthController(IAuthService authService)
         {
             _authService = authService;
@@ -35,7 +39,7 @@ namespace Storyteller.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<TokenModel>> Login(UserLoginModel request)
+        public async Task<ActionResult<ResponseTokenModel>> Login(UserLoginModel request)
         {
             var response = _authService.Login(request);
             if (response == null) return BadRequest("Err");
@@ -62,10 +66,14 @@ namespace Storyteller.API.Controllers
                 RefreshToken = refreshToken,
             });
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "5150")]
         [HttpPost("getinvitation")]
         public async Task<ActionResult<string>> GetInvitation(InvitationModel role)
         {
+            if (role.Role == "Admin") role.Role = Admin;
+            else if (role.Role == "Writer") role.Role = Writer;
+            else if (role.Role == "Reader") role.Role = Reader;
+            else return BadRequest("Why are you even trying?");
             string invitation = _authService.GenerateInvitation(role.Role);
             return Ok(invitation);
         }
