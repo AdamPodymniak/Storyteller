@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import useAxiosPrivate from '../Hooks/useAxiosPrivate';
+import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
 
 
 const GetInvitation = () => {

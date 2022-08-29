@@ -1,0 +1,34 @@
+.Header {
+    width: 100vw;
+    position: fixed;
+}
+.Title{
+    position: absolute;
+    left: .3em;
+    font-weight: 500;
+    font-size: 2.1em;
+}
+.Navbar{
+    position: absolute;
+    font-size: 1.7em;
+    top: .3em;
+    right: 1em;
+}
+.Navbar *{
+    cursor: pointer;
+}
+.Cog {
+    position: absolute;
+    top: -2em;
+    right: -2em;
+    font-size: 2.4em;
+    margin: .3em -.1em;
+    padding: 1.5em;
+    border-radius: 100%;
+}
+.svg{
+    color: rgb(171, 171, 171);
+    position: relative;
+    top: .6em;
+    right: .5em;
+}

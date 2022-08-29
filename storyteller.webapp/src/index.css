@@ -8,28 +8,8 @@
     box-sizing: border-box;
 }
 
-html {
-    font-family: 'Space Mono', sans-serif;
-    font-size: 22px;
-    color: #fff;
-}
-
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    background-color: dodgerblue;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; 
-  padding: 1rem 0.5rem;
-}
-
 .Container {
+    overflow: hidden;
     color: #fbfbfb;
     height: 100vh;
     text-align: center;
