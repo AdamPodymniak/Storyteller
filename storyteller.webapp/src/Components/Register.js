@@ -16,8 +16,28 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+    const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        if(username.length < 3){
+            setErrMsg("Username must be at least 3 characters long!");
+            setPassword('');
+            setRepeatPassword('');
+            return ;
+        }
+        if(!mediumRegex.test(password)){
+            setErrMsg("Insert better password!");
+            setPassword('');
+            setRepeatPassword('');
+            return ;
+        }
+        if(password !== repeatPassword){
+            setErrMsg("Passwords don't match!");
+            setPassword('');
+            setRepeatPassword('');
+            return ;
+        }
         try {
             if(!registerRef.current){
                 await axios.post('/Auth/register',
@@ -29,29 +49,27 @@ const Register = () => {
                 }
             }
         } catch(err){
-            setErrMsg('');
-            console.log(err.response.data)
-                if(err.response.data === "PasErr1"){
-                    setErrMsg("Password is too short!");
-                }else if(err.response.data === "PasErr2"){
-                    setErrMsg("Password don't match!");
-                }
-                else if(err.response.data === "UsrErr"){
-                    setErrMsg("User already exists!");
-                }
-                else if(err.response.data === "InvErr"){
-                    setErrMsg("Wrong invitation!");
-                }
+            if(err.response.data === "UsrErr"){
+                setErrMsg("User already exists!");
             }
+            else if(err.response.data === "InvErr"){
+                setErrMsg("Wrong invitation!");
+            }
+            else{
+                setErrMsg("Something went wrong");
+            }
+            setPassword('');
+            setRepeatPassword('');
         }
+    }
 
     return (
-        <div className={styles.Container}>
+        <div className="Container">
             <div className={styles.Register}>
                 <form onSubmit={handleSubmit}>
                 <h2 className={styles.Title}>Register</h2>
-                    <p className={styles.Description}>Do you have an account?</p>
-                {errMsg ? (<p>{errMsg}</p>) : (null)}
+                {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
+                <p className={styles.Description}>Do you have an account?</p>}
                     <input
                         className={styles.input}
                         placeholder='Username'
@@ -94,9 +112,9 @@ const Register = () => {
                         onChange={(e)=>setInvitation(e.target.value)}
                         required
                     /><br />
-                    <button class={styles.button} type="submit">REGISTER</button>
+                    <button className={styles.button} type="submit">REGISTER</button>
                     <p className={styles.BottomLine}>
-                        <Link className={styles.a} to="/login" replace>— Or Login —</Link>
+                        <Link className={styles.a} to="/login" replace>— Login —</Link>
                     </p>
                 </form>
             </div>

@@ -1,0 +1,9 @@
+.Unauthorized {
+    height: 100vh;
+    position: relative;
+    top: 20%;
+}
+.Unauthorized a{
+    text-decoration: none;
+    color: #f1f1f1;
+}

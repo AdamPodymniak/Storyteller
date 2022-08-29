@@ -10,6 +10,8 @@ import Main from "./Components/Main";
 import Layout from "./Components/Layout";
 import RequireAuth from "./Components/RequireAuth";
 import RequireLogout from "./Components/RequireLogout";
+import Unauthorized from "./Components/Unauthorized";
+import PageNotFound from "./Components/PageNotFound";
 
 const ROLES = {
   Admin: "4214564343",
@@ -32,6 +34,8 @@ function App() {
           <Route path="/getinvitation" element={<GetInvitation />} />
         </Route>
       </Route>
+      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }

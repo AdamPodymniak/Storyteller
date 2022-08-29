@@ -44,12 +44,13 @@ const Login = () => {
     }
 
     return (
-        <div className={styles.Container}>
+        <div className="Container">
             <div className={styles.Login}>
                 <form onSubmit={handleSubmit}>
                     <h2 className={styles.Title}>Login</h2>
-                    <p className={styles.Description}>Do you have an account?</p>
-                    {errMsg ? (<p>{errMsg}</p>) : (null)}
+                    
+                    {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
+                    <p className={styles.Description}>Do you have an account?</p>}
                     <input
                         className={styles.input}
                         placeholder='Username'
@@ -73,7 +74,7 @@ const Login = () => {
                     /><br />
                     <button className={styles.button} type="submit">LOG IN</button>
                     <p className={styles.BottomLine}>
-                        <Link className={styles.a} to="/register" replace>— Or Register —</Link>
+                        <Link className={styles.a} to="/register" replace>— Register —</Link>
                     </p>
                 </form>
             </div>

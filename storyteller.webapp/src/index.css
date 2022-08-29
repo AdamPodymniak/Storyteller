@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap");
 
 * {
     margin: 0;
@@ -26,4 +27,23 @@ body {
   align-items: center;
   min-height: 100vh; 
   padding: 1rem 0.5rem;
+}
+
+.Container {
+    color: #fbfbfb;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    background-image: url('../public/images/photo-1585409677983-0f6c41ca9c3b.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Container::before{
+    background-color: rgba(26, 23, 23, .38);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
 }
