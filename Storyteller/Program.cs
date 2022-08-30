@@ -30,9 +30,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IStoryService, StoryService>();
 
 builder.Services.AddTransient<IUserRepository, UsersRepository>();
 builder.Services.AddTransient<IInviteRepository, InviteRepository>();
+builder.Services.AddTransient<IStoryRepository, StoryRepository>();
+builder.Services.AddTransient<ISlideRepository, SlideRepository>();
+builder.Services.AddTransient<ITextRepository, TextRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

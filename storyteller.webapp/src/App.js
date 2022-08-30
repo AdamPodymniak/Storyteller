@@ -6,7 +6,7 @@ import {
 import Register from './Components/Auth/Register'
 import Login from './Components/Auth/Login'
 import GetInvitation from "./Components/Auth/GetInvitation";
-import Main from "./Components/Main";
+import Main from "./Components/MainElements/Main";
 import Layout from "./Components/PageControlls/Layout";
 import RequireAuth from "./Components/PageControlls/RequireAuth";
 import RequireLogout from "./Components/PageControlls/RequireLogout";
