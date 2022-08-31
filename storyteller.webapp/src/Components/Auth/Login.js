@@ -30,6 +30,8 @@ const Login = () => {
                 cookies.set('refreshToken', data.refreshToken, { path: "/" });
                 localStorage.setItem('jwtToken', data.jwtToken);
                 localStorage.setItem('role', data.role);
+                localStorage.setItem('guid', data.userGuid);
+                console.log(data);
                 navigate(from, { replace: true });
                 return () => {
                     loginRef.current = true;

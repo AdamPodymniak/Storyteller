@@ -7,15 +7,27 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Storyteller.Repository.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
         User GetByName(string name);
+        User GetByGuid(Guid key);
     }
     public class UsersRepository : GenericRepository<User>, IUserRepository
     {
+        public User GetByGuid(Guid key)
+        {
+            using (var connection = new NpgsqlConnection(dbConnection))
+            {
+                SimpleCRUD.SetDialect(SimpleCRUD.Dialect.PostgreSQL);
+                connection.Open();
+                return connection.Get<User>(key);
+            }
+        }
+
         public User GetByName(string name)
         {
             using (var connection = new NpgsqlConnection(dbConnection))

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Storyteller.Repository.Entities
         public byte[] PasswordSalt { get; set; }
         public float Rating { get; set; }
         public string Role { get; set; }
+        [Key]
         public Guid Guid { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }

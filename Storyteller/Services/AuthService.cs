@@ -52,6 +52,7 @@ namespace Storyteller.API.Services
             token.JWTToken = CreateJWTToken(user);
             token.RefreshToken = CreateRefreshToken();
             token.Role = user.Role;
+            token.UserGuid = user.Guid;
 
             user.RefreshToken = token.RefreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(1);
