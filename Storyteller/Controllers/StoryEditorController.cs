@@ -26,8 +26,8 @@ namespace Storyteller.API.Controllers
             _storyService = storyService;
         }
         [HttpPost("add")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Admin + Writer)]
-        public async Task<ActionResult> AddStory(StoryRequestModel model)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = Admin)]
+        public async Task<ActionResult> AddStory([FromForm]StoryRequestModel model)
         {
             if (model.Name == null) return BadRequest("NameErr");
             _storyService.AddStory(model);

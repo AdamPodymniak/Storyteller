@@ -39,8 +39,8 @@ namespace Storyteller.API.Services
             story.Name = model.Name;
             story.Description = model.Description;
             var fileName = "Image_" + DateTime.UtcNow.TimeOfDay.Milliseconds + model.File.FileName;
-            var path = Path.Combine("", _hostingEnv.ContentRootPath+"Images/"+fileName);
-            using(var stream = new FileStream(path, FileMode.Create))
+            var path = Path.Combine("", _hostingEnv.ContentRootPath + "Images/" + fileName);
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 model.File.CopyTo(stream);
             }

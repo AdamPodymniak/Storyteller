@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import useAxiosPrivate from '../../Hooks/useAxiosPrivate';
+import styles from './GetInvitation.module.css';
 
 
 const GetInvitation = () => {
@@ -34,8 +35,8 @@ const GetInvitation = () => {
     }
 
     return (
-        <div>
-            <p>GetInvitation</p>
+        <div className={styles.Container}>
+            <p className={styles.Title}>GetInvitation</p>
             <select value={role} onChange={(e)=>setRole(e.target.value)}>
                 <option value="Reader">Reader</option>
                 <option value="Writer">Writer</option>

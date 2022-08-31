@@ -10,7 +10,6 @@ namespace Storyteller.Repository.Entities
     public class Story
     {
         public int ID { get; set; }
-        [Key]
         public Guid StoryGuid { get; set; }
         public Guid UserGuid { get; set; }
         public string Name { get; set; }
