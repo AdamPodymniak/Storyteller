@@ -1,16 +1,33 @@
+.Container {
+    overflow: hidden;
+    color: #fbfbfb;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    background-image: url('../../../public/images/scenery-with-cliff-river-and-forest-geert-weggen.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Container::before{
+    background: linear-gradient(70deg, rgba(18,18,18,1) 0%, rgba(38,38,38,1) 60%, rgba(32, 32, 32, 0.8) 100%);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
 .Login, .Register {
     height: 100vh;
     position: relative;
     top: 20%;
+    text-align: center;
 }
 .input {
     border: 1px solid transparent;
-    background: rgba(255, 255, 255, 0.01);
-    border-radius: 25px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    width: 330px;
+    background: rgba(66, 66, 66, 0.1);
+    border-radius: 15px;
+    width: 530px;
     height: 50px;
     transition: .3s;
     padding-left: 20px;
@@ -24,39 +41,73 @@
     font-size: 17px;
     position: relative;
 }
-.input:hover {
-    border: 1px solid #f1f1f1;
-    background: rgba(0, 0, 0, 0.05);
+.input:hover, input:focus {
+    border: 3px solid #2585fc;
+    background: rgba(255, 255, 255, 0.1);
 }
 .Title {
+    margin-left: 1%;
     font-size: 2.1em;
     position: relative;
     top: -60px;
     font-weight: 500;
 }
 .Description {
+    margin-left: 1%;
     font-size: 1.2em;
     position: relative;
     top: -10px;
     font-weight: 300;
 }
+.buttons{
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+}
 .button {
     margin: 10px;
-    width: 330px;
+    width: 230px;
     height: 50px;
     transition: .3s;
-    background-color: rgb(246, 213, 172);
+    color: #f1f1f1;
     border: 1px solid transparent;
     border-radius: 25px;
     cursor: pointer;
 }
-.button:hover{
-    background-color: rgb(249, 209, 159);
+.buttonBlue{
+    background-color: #2585fc;
 }
-.BottomLine {
-    font-size: small;
+.buttonGrey{
+    background-color: #3b3b3b;
+}
+.buttonBlue:hover{
+    background-color: #0070f9;
+}
+.buttonGrey:hover{
+    background-color: #2e2e2e;
 }
 .a{
     text-decoration: none;
-    color: #f1f1f1;
+    color: #127bfb;
+}
+.a:hover{
+    text-decoration: none;
+    color: #006ef5;
+}
+.svg {
+    z-index: 0;
+    background-image: url("/public/images/line.svg");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 5%;
+    top: -20%;
+    opacity: .3;
+}
+.form{
+    text-align: left;
+    position: relative;
+    left: 5%;
+    top: 10%;
+    z-index: 1;
 }

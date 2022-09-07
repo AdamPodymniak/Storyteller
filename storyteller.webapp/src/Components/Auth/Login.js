@@ -46,13 +46,16 @@ const Login = () => {
     }
 
     return (
-        <div className="Container">
+        <div className={styles.Container}>
             <div className={styles.Login}>
-                <form onSubmit={handleSubmit}>
-                    <h2 className={styles.Title}>Login</h2>
-                    
+                <div className={styles.svg}></div>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <h2 className={styles.Title}>Log in to your account</h2>
                     {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
-                    <p className={styles.Description}>Do you have an account?</p>}
+                    <p className={styles.Description}>
+                        Don't have an account?
+                        <Link className={styles.a} to="/register" replace>  Register</Link>
+                    </p>}
                     <input
                         className={styles.input}
                         placeholder='Username'
@@ -74,10 +77,10 @@ const Login = () => {
                         onChange={(e)=>setPassword(e.target.value)}
                         required
                     /><br />
-                    <button className={styles.button} type="submit">LOG IN</button>
-                    <p className={styles.BottomLine}>
-                        <Link className={styles.a} to="/register" replace>— Register —</Link>
-                    </p>
+                    <div className={styles.buttons}>
+                        <button className={`${styles.button} ${styles.buttonGrey}`}>CHANGE METHOD</button>
+                        <button className={`${styles.button} ${styles.buttonBlue}`} type="submit">LOG IN</button>
+                    </div>
                 </form>
             </div>
         </div>

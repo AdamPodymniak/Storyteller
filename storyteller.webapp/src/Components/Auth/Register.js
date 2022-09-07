@@ -64,12 +64,16 @@ const Register = () => {
     }
 
     return (
-        <div className="Container">
+        <div className={styles.Container}>
             <div className={styles.Register}>
-                <form onSubmit={handleSubmit}>
+                <div className={styles.svg}></div>
+                <form onSubmit={handleSubmit} className={styles.form}>
                 <h2 className={styles.Title}>Register</h2>
                 {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
-                <p className={styles.Description}>Do you have an account?</p>}
+                <p className={styles.Description}>
+                    Already have an account?
+                    <Link className={styles.a} to="/login" replace> Login</Link>    
+                </p>}
                     <input
                         className={styles.input}
                         placeholder='Username'
@@ -112,10 +116,10 @@ const Register = () => {
                         onChange={(e)=>setInvitation(e.target.value)}
                         required
                     /><br />
-                    <button className={styles.button} type="submit">REGISTER</button>
-                    <p className={styles.BottomLine}>
-                        <Link className={styles.a} to="/login" replace>— Login —</Link>
-                    </p>
+                    <div className={styles.buttons}>
+                        <button className={`${styles.button} ${styles.buttonGrey}`}>CHANGE METHOD</button>
+                        <button className={`${styles.button} ${styles.buttonBlue}`} type="submit">REGISTER</button>
+                    </div>
                 </form>
             </div>
         </div>

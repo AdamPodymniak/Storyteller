@@ -14,13 +14,13 @@
     height: 100vh;
     text-align: center;
     font-family: 'Lato', sans-serif;
-    background-image: url('../public/images/photo-1585409677983-0f6c41ca9c3b.jpg');
+    background-image: url('../public/images/scenery-with-cliff-river-and-forest-geert-weggen.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .Container::before{
-    background-color: rgba(26, 23, 23, .38);
+    background: linear-gradient(70deg, rgba(18,18,18,1) 0%, rgba(38,38,38,1) 60%, rgba(32, 32, 32, 0.8) 100%);
     content: '';
     display: block;
     height: 100%;
