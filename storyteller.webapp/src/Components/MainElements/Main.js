@@ -1,69 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from './Main.module.css'
+import CreateStory from './CreateStory'
 import useAxiosPrivate from '../../Hooks/useAxiosPrivate'
 
 const Main = () => {
-    
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [file, setFile] = useState('');
-
+    const isLoaded = useRef(false);
+    const [data, setData] = useState();
     const axiosPrivate = useAxiosPrivate();
-
-    const userGuid = localStorage.getItem('guid');
-
-    const handleSubmit = async (e)=>{
-        e.preventDefault();
-        try{
-            const formData = new FormData();
-            formData.append("Name", name);
-            formData.append("Description", description);
-            formData.append("File", file);
-            formData.append("UserGuid", userGuid);
-            await axiosPrivate.post('/StoryEditor/add', formData);
-            setName('');
-            setDescription('');
-        }catch(err){
-            console.error(err);
+    useEffect(()=>{
+        if(!isLoaded.current){
+            (async function loadData(){
+                const response = await axiosPrivate.get('/StoryEditor/get');
+                setData(response.data);
+                console.log(response.data);
+            })()
+            isLoaded.current = true;
         }
-    }
+    }, [axiosPrivate, data])
 
-    return (
+    return(
         <div className={styles.Container}>
-            <p>Main</p>
-            <form onSubmit={handleSubmit}>
-                    <input
-                        className={styles.input}
-                        placeholder='Name'
-                        id="name"
-                        name="name"
-                        type="text"
-                        value={name}
-                        onChange={e=>setName(e.target.value)}
-                        autoComplete='off'
-                        required
-                    /><br />
-                    <textarea
-                        className={styles.input}
-                        placeholder='Description'
-                        id="description"
-                        name="description"
-                        value={description}
-                        onChange={e=>setDescription(e.target.value)}
-                        required
-                    /><br />
-                    <input
-                        className={styles.input}
-                        placeholder='File'
-                        id="file"
-                        name="file"
-                        type="file"
-                        accept="image/png, image/gif, image/jpeg"
-                        onChange={(e)=>setFile(e.target.files[0])}
-                        required
-                    /><br />
-                    <button className={styles.AddButton} type="submit">CREATE</button>
-                </form>
+            {data?.map(item=>{
+                return(
+                    <div key={item.id}>
+                        <h3>{item.name}</h3>
+                        <p>{item.description}</p>
+                        <img width="100px" src={"https://localhost:7144/" + item.imgPath} alt="idk"></img>
+                    </div>
+                )
+            })}
+            <CreateStory />
         </div>
     )
 }

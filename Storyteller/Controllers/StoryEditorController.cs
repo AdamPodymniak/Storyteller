@@ -35,9 +35,9 @@ namespace Storyteller.API.Controllers
         }
         [HttpGet("get")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<Story>> GetStory(Guid key)
+        public async Task<ActionResult<IEnumerable<Story>>> GetStory()
         {
-            var story = _storyService.GetStory(key);
+            var story = _storyService.GetStory();
             if (story == null) return BadRequest("How?");
             return Ok(story);
         }

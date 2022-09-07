@@ -10,7 +10,7 @@ namespace Storyteller.API.Services
     public interface IStoryService
     {
         void AddStory(StoryRequestModel model);
-        Story GetStory(Guid key);
+        IEnumerable<Story> GetStory();
 
     }
     public class StoryService : IStoryService
@@ -44,7 +44,7 @@ namespace Storyteller.API.Services
             {
                 model.File.CopyTo(stream);
             }
-            story.ImgPath = path;
+            story.ImgPath = "images/" + fileName;
             story.UserGuid = _userRepository.GetByGuid(model.UserGuid).Guid;
             Guid key = Guid.NewGuid();
             story.StoryGuid = key;
@@ -53,9 +53,9 @@ namespace Storyteller.API.Services
             _storyRepository.Add(story);
         }
 
-        public Story GetStory(Guid key)
+        public IEnumerable<Story> GetStory()
         {
-            return _storyRepository.GetStoryByGuid(key);
+            return _storyRepository.GetList();
         }
     }
 }
