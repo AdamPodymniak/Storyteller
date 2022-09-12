@@ -68,7 +68,7 @@ const Register = () => {
             <div className={styles.Register}>
                 <div className={styles.svg}></div>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                <h2 className={styles.Title}>Register</h2>
+                <h2 className={styles.Title}>Create new account<span className={styles.dot}>.</span></h2>
                 {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
                 <p className={styles.Description}>
                     Already have an account?

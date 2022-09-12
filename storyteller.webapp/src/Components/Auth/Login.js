@@ -50,7 +50,7 @@ const Login = () => {
             <div className={styles.Login}>
                 <div className={styles.svg}></div>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                    <h2 className={styles.Title}>Log in to your account</h2>
+                    <h2 className={styles.Title}>Log in to your account<span className={styles.dot}>.</span></h2>
                     {errMsg ? (<p className={styles.Description}>{errMsg}</p>) :
                     <p className={styles.Description}>
                         Don't have an account?
